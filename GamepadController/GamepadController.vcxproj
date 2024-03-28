@@ -136,14 +136,14 @@
     <ClCompile Include="ControllerHandler.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="SystemControll.cpp" />
+    <ClCompile Include="SystemControl.cpp" />
     <ClCompile Include="WinInterface.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Action.h" />
     <ClInclude Include="ControllerHandler.h" />
     <ClInclude Include="Event.h" />
-    <ClInclude Include="SystemControll.h" />
+    <ClInclude Include="SystemControl.h" />
     <ClInclude Include="WinInterface.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

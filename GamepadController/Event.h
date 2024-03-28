@@ -50,7 +50,7 @@ public:
 					using func_t = std::decay_t<decltype(callback)>;
 					if constexpr (std::is_invocable_v<func_t, Args...>)
 					{
-						func(std::forward<Args>(_args)...);
+						callback(std::forward<Args>(_args)...);
 					}
 				}, callbacks[_event]);
 		}

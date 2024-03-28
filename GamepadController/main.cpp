@@ -2,7 +2,7 @@
 #include <SDL2/SDL.h>
 #include <iostream>
 #include <memory>
-#include "ControllerHandler.h"
+#include "SystemControl.h"
 
 int main(int argc, char* args[])
 {
@@ -14,24 +14,13 @@ int main(int argc, char* args[])
         return -1;
     }
 
-    ControllerHandler controllerHandler(0);
-
+    SystemController s_c;
 
     while (1)
     {
-        auto event = controllerHandler.poll_controller_event();
-        if (event.has_value())
-        {
-            if (event.value().type == SDL_CONTROLLERBUTTONDOWN)
-            {
-                std::cout << "Button " << event.value().button.timestamp << " pressed\n";
-            }
-        }
+        s_c.update();
     }
     
-
-
-
     SDL_Quit();
     return 0;
 }
