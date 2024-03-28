@@ -8,6 +8,8 @@
 
 class WinInterface;
 
+using AxisState = std::pair<int, int>;
+
 class ControllerHandler
 {
     struct ControllerDeleter {
@@ -20,15 +22,23 @@ class ControllerHandler
     };
 
 public:
-	explicit ControllerHandler(size_t _id, WinInterface& _win_interface);
+	ControllerHandler(size_t _id, WinInterface& _win_interface);
+    ControllerHandler(const ControllerHandler&) = delete;
+    ControllerHandler& operator=(const ControllerHandler&) = delete;
+    ControllerHandler(ControllerHandler&&) = delete;
+    ControllerHandler& operator=(ControllerHandler&&) = delete;
     void handle_event(const SDL_Event& event);
     void update();
 
 private:
     void handle_button_press(const SDL_Event& event);
     void handle_button_release(const SDL_Event& event);
-    void handle_axis_motion(const SDL_Event& event);
+    void handle_axis_motion();
+    bool axis_in_deadzone();
+    AxisState get_axis_state();
 
+private:
+    const int deadzone_ = 500;
 	size_t id_;
     WinInterface& win_interface_;
     std::unique_ptr<SDL_GameController,ControllerDeleter> controller_;

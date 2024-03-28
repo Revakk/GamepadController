@@ -1,6 +1,6 @@
 #pragma once
+#include <windows.h>
 #include <WinUser.h>
-#include "windef.h"
 
 class WinInterface
 {
@@ -11,7 +11,3 @@ public:
 private:
 	POINT current_position_;
 };
-
-
-
-

@@ -30,7 +30,7 @@
     <ClCompile Include="Action.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SystemControll.cpp">
+    <ClCompile Include="SystemControl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -47,7 +47,7 @@
     <ClInclude Include="Action.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SystemControll.h">
+    <ClInclude Include="SystemControl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
