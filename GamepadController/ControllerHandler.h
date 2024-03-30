@@ -5,10 +5,20 @@
 #include <memory>
 #include <optional>
 #include <SDL2/SDL.h>
+#include <chrono>
+#include <numeric>
+#include <array>
 
 class WinInterface;
 
 using AxisState = std::pair<int, int>;
+
+constexpr std::array<uint8_t, 4> MAIN_REQUEST = std::array<uint8_t, 4>{ SDL_CONTROLLER_BUTTON_LEFTSTICK ,SDL_CONTROLLER_BUTTON_RIGHTSTICK , SDL_CONTROLLER_BUTTON_LEFTSHOULDER , SDL_CONTROLLER_BUTTON_RIGHTSHOULDER };
+
+struct ButtonState {
+    bool pressed = false;
+    std::optional<std::chrono::time_point<std::chrono::system_clock>> time_pressed = std::nullopt;
+};
 
 class ControllerHandler
 {
@@ -31,17 +41,18 @@ public:
     void update();
 
 private:
-    void handle_button_press(const SDL_Event& event);
-    void handle_button_release(const SDL_Event& event);
+    void handle_button_action(const SDL_Event& event, bool trigger);
     void handle_axis_motion();
     bool axis_in_deadzone();
     AxisState get_axis_state();
+    void process_button_combinations();
 
 private:
     const int deadzone_ = 500;
 	size_t id_;
     WinInterface& win_interface_;
     std::unique_ptr<SDL_GameController,ControllerDeleter> controller_;
+    std::vector<ButtonState> buttons_state_;
     EventHandler event_handler_;
     bool active_ = false;
     bool main_ = false;
