@@ -9,7 +9,7 @@ void SystemController::update()
     {
         if (!controllers_.contains(i))
         {
-            controllers_.emplace(std::make_pair<size_t,std::unique_ptr<ControllerHandler>>(static_cast<size_t>(i),std::make_unique<ControllerHandler>(i,win_interface_)));
+            controllers_.emplace(std::make_pair<size_t, std::unique_ptr<ControllerHandler>>(static_cast<size_t>(i), std::make_unique<ControllerHandler>(i, win_interface_)));
         }
     };
 
@@ -17,9 +17,9 @@ void SystemController::update()
 
     while (SDL_PollEvent(&event))
     {
-        if (event.type == SDL_CONTROLLERAXISMOTION || event.type == SDL_CONTROLLERBUTTONDOWN)
+        if (event.type == SDL_CONTROLLERBUTTONDOWN || event.type == SDL_CONTROLLERBUTTONUP)
         {
-            //controllers_.at(event.cbutton.which)->handle_event(event);
+            controllers_.at(event.cbutton.which)->handle_event(event);
         }
     }
 
