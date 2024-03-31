@@ -8,11 +8,13 @@
 #include <chrono>
 #include <numeric>
 #include <array>
+#include <future>
 
 class WinInterface;
 
 using AxisState = std::pair<int, int>;
 
+constexpr int REQUEST_TIMER = 3;
 constexpr std::array<uint8_t, 4> MAIN_REQUEST = std::array<uint8_t, 4>{ SDL_CONTROLLER_BUTTON_LEFTSTICK ,SDL_CONTROLLER_BUTTON_RIGHTSTICK , SDL_CONTROLLER_BUTTON_LEFTSHOULDER , SDL_CONTROLLER_BUTTON_RIGHTSHOULDER };
 
 struct ButtonState {
@@ -46,6 +48,7 @@ private:
     bool axis_in_deadzone();
     AxisState get_axis_state();
     void process_button_combinations();
+    void start_request_timer();
 
 private:
     const int deadzone_ = 500;
@@ -54,6 +57,5 @@ private:
     std::unique_ptr<SDL_GameController,ControllerDeleter> controller_;
     std::vector<ButtonState> buttons_state_;
     EventHandler event_handler_;
-    bool active_ = false;
-    bool main_ = false;
+    std::optional<std::future<void>> button_combination_future_;
 };

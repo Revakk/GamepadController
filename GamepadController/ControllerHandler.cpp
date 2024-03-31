@@ -103,8 +103,28 @@ void ControllerHandler::process_button_combinations()
     }
     );
 
-    if (pattern_pressed)
+    if (pattern_pressed && button_combination_future_.has_value())
     {
-        std::cout << "pressed" << '\n';
+        if (button_combination_future_.value().wait_for(std::chrono::seconds(0)) == std::future_status::ready)
+        {
+            std::cout << "future is ready";
+            //button_combination_future_.value().get();
+        }
+        else {
+            std::cout << "future is not ready";
+        }
+    } else if (pattern_pressed && !button_combination_future_.has_value()){
+        button_combination_future_ = std::async(std::launch::async, [this]()
+        {
+            start_request_timer();
+        });
     }
+    else {
+        button_combination_future_ = std::nullopt;
+    }
+}
+
+void ControllerHandler::start_request_timer()
+{
+    std::this_thread::sleep_for(std::chrono::seconds(REQUEST_TIMER));
 }
