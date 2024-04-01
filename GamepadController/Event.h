@@ -3,29 +3,30 @@
 #include <variant>
 #include <map>
 #include <type_traits>
+#include <SDL2/SDL_gamecontroller.h>
 
-enum class XboxControllerEvent
-{
-	A,
-	B,
-	X,
-	Y,
-	LB,
-	RB,
-	RT,
-	LT,
-	Back,
-	Start,
-	Share,
-	LStickClick,
-	RStickClick,
-	LStick,
-	RStick,
-	DPadUp,
-	DPadDown,
-	DPadLeft,
-	DPadRight
-};
+//enum class XboxControllerEvent
+//{
+//	A,
+//	B,
+//	X,
+//	Y,
+//	LB,
+//	RB,
+//	RT,
+//	LT,
+//	Back,
+//	Start,
+//	Share,
+//	LStickClick,
+//	RStickClick,
+//	LStick,
+//	RStick,
+//	DPadUp,
+//	DPadDown,
+//	DPadLeft,
+//	DPadRight
+//};
 
 using CallbackNoArgs = std::function<void()>;
 using CallbackCoords = std::function<void(float,float)>;
@@ -35,13 +36,13 @@ class EventHandler
 {
 public:
 	
-	void register_event(XboxControllerEvent _event, ControllerCallback _callback)
+	void register_event(SDL_GameControllerButton _event, ControllerCallback _callback)
 	{
 		callbacks[_event] = _callback;
 	}
 
 	template<typename... Args>
-	void trigger_event(XboxControllerEvent _event, Args... _args)
+	void trigger_event(SDL_GameControllerButton _event, Args... _args)
 	{
 		if (callbacks.find(_event) != callbacks.end())
 		{
@@ -57,5 +58,5 @@ public:
 	}
 
 private:
-	std::unordered_map<XboxControllerEvent, ControllerCallback> callbacks;
+	std::unordered_map<SDL_GameControllerButton, ControllerCallback> callbacks;
 };
