@@ -5,10 +5,14 @@
 #include <functional>
 
 
+/* TODO:
+*  - test the program when you have main controller and it disconnects
+*  - maybe more functionality? create game folder and open it with specific key
+*  - open steam with specific key
+*  - 
+*/
 void SystemController::update()
 {
-    std::cout << controllers_.size() << std::endl;
-
     auto event = SDL_Event();
 
     while (SDL_PollEvent(&event))
@@ -20,7 +24,6 @@ void SystemController::update()
 
         if (event.type == SDL_CONTROLLERDEVICEREMOVED)
         {
-            std::cout << "Controller Removed" << std::endl;
             auto device_id = event.cdevice.which;
             controllers_.erase(device_id);
             if (main_controller_id_.value_or((std::numeric_limits<size_t>::max)()) == device_id)
