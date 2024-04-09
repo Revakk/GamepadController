@@ -19,4 +19,3 @@ private:
 	WinInterface win_interface_;
 	std::optional<size_t> main_controller_id_ = std::nullopt;
 };
-

@@ -132,7 +132,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Action.cpp" />
     <ClCompile Include="ControllerHandler.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="main.cpp" />
@@ -140,7 +139,6 @@
     <ClCompile Include="WinInterface.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Action.h" />
     <ClInclude Include="ControllerHandler.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="SystemControl.h" />
